@@ -18,7 +18,8 @@
       <router-link to="/pic">Pic</router-link> |
       <router-link to="/message">Message</router-link> |
       <router-link to="/canvas">Canvas</router-link> |
-      <router-link to="/weather">Weather</router-link>
+      <router-link to="/weather">Weather</router-link> |
+      <router-link to="/gradientBg">Gradient</router-link>
     </div>
     <div id="container"></div>
     <br>

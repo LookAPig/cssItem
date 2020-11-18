@@ -14,22 +14,25 @@ export default {
     init () {
       let duration = 0.8;
       let delay = 0.3;
-      let revealText = document.querySelector(".reveal");
-      console.log(revealText)
-      let letters = revealText.textContent.split("");
-      revealText.textContent = "";
-      let middle = letters.filter(e => e !== " ").length / 2;
-      letters.forEach((letter, i) => {
-        let span = document.createElement("span");
-        span.textContent = letter;
-        span.style.animationDelay = `${delay + Math.abs(i - middle) * 0.1}s`;
-        revealText.append(span);
-      });
+      this.$nextTick(() => {
+        let revealText = document.querySelector(".reveal")
+        let letters = revealText.textContent.split("")
+        revealText.textContent = ""
+        let middle = letters.filter(e => e !== " ").length / 2;
+        letters.forEach((letter, i) => {
+          let span = document.createElement("span")
+          span.textContent = letter
+          span.style.animationDelay = `${delay + Math.abs(i - middle) * 0.1}s`
+          revealText.append(span)
+        })
+      })
     } 
     
   },
   mounted () {
-    this.init()
+    this.$nextTick(() => {
+      this.init()
+    })
   },
   components: {
   },
