@@ -4,7 +4,7 @@
 </div>
 </template>
 <script>
-// @ is an alias to /src
+import { TimelineLite, TweenLite, TimelineMax, TweenMax, gsap } from "gsap";
 export default {
   name: 'home',
   data () {
@@ -24,15 +24,14 @@ export default {
           span.textContent = letter
           span.style.animationDelay = `${delay + Math.abs(i - middle) * 0.1}s`
           revealText.append(span)
+          this.$forceUpdate()
         })
       })
     } 
     
   },
   mounted () {
-    this.$nextTick(() => {
-      this.init()
-    })
+    this.$nextTick(() => {})
   },
   components: {
   },

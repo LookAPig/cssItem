@@ -61,6 +61,11 @@ export default new Router({
       path: '/gradientBg',
       name: 'gradientBg',
       component: () => import('./views/GradientBg.vue')
+    },
+    {
+      path: '/loading',
+      name: 'loading',
+      component: () => import('./views/Loading.vue')
     }
   ]
 })

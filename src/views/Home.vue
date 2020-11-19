@@ -2,13 +2,6 @@
   <div class="home">
     <!-- <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <b-nav tabs fill>
-      <b-nav-item active><router-link to="/">Home</router-link></b-nav-item>
-      <b-nav-item><router-link to="/404">404</router-link></b-nav-item>
-      <b-nav-item><router-link to="/snow">Snow</router-link></b-nav-item>
-      <b-nav-item><router-link to="/pic">Pic</router-link></b-nav-item>
-      <b-nav-item><router-link to="/weather">Weather</router-link></b-nav-item>
-    </b-nav>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/404">404</router-link> |
@@ -19,7 +12,8 @@
       <router-link to="/message">Message</router-link> |
       <router-link to="/canvas">Canvas</router-link> |
       <router-link to="/weather">Weather</router-link> |
-      <router-link to="/gradientBg">Gradient</router-link>
+      <router-link to="/gradientBg">Gradient</router-link> |
+      <router-link to="/loading">Loading</router-link>
     </div>
     <div id="container"></div>
     <br>

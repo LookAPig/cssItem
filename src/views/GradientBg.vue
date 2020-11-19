@@ -27,7 +27,6 @@ export default {
   text-align: center;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #b6e75a);
   background-size: 400% 400%;
-//   background-position: 0% 50%;
   animation: gradient 15s ease infinite;
   color: white;
 }
