@@ -7,13 +7,14 @@
       <router-link to="/404">404</router-link> |
       <router-link to="/snow">Snow</router-link> |
       <router-link to="/dna">DNALoding</router-link> |
-      <router-link to="/show">Show</router-link> |
+      <!-- <router-link to="/show">Show</router-link> | -->
       <router-link to="/pic">Pic</router-link> |
-      <router-link to="/message">Message</router-link> |
-      <router-link to="/canvas">Canvas</router-link> |
+      <!-- <router-link to="/message">Message</router-link> | -->
+      <!-- <router-link to="/canvas">Canvas</router-link> | -->
       <router-link to="/weather">Weather</router-link> |
       <router-link to="/gradientBg">Gradient</router-link> |
-      <router-link to="/loading">Loading</router-link>
+      <router-link to="/loading">Loading</router-link> |
+      <router-link to="/svgImage">SvgImage</router-link>
     </div>
     <div id="container"></div>
     <br>

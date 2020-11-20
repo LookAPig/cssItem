@@ -66,6 +66,11 @@ export default new Router({
       path: '/loading',
       name: 'loading',
       component: () => import('./views/Loading.vue')
+    },
+    {
+      path: '/svgImage',
+      name: 'svgImage',
+      component: () => import('./views/SvgImage.vue')
     }
   ]
 })
