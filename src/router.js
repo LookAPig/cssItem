@@ -18,7 +18,8 @@ export default new Router({
     {
       path: '/',
       name: 'Welcome',
-      component: Welcome
+      component: Welcome,
+      meta: {index: 0}
     },
     {
       path: '/404',
@@ -77,6 +78,12 @@ export default new Router({
       path: '/svgImage',
       name: 'svgImage',
       component: () => import('./views/SvgImage.vue')
+    },
+    {
+      path: '/index',
+      name: 'index',
+      component: () => import('./sweetTime/Index.vue'),
+      meta: {index: 1}
     }
   ]
 })

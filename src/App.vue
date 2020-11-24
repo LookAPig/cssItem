@@ -7,10 +7,32 @@
       <router-link to="/dna">DNALoding</router-link> |
       <router-link to="/show">Show</router-link>
     </div> -->
-    <router-view/>
+    <transition :name="transitionName">
+      <router-view/>
+    </transition>
   </div>
 </template>
-
+<script>
+export default {
+  data(){
+    return{
+      transitionName:"",
+    } 
+  },
+  // 监听,当路由发生变化的时候执行
+  watch:{
+    $route (to,from) {
+      //实现路由跳转动画
+      if (to.meta.index > from.meta.index)  
+        this.transitionName = "slide-left"
+      if (to.meta.index < from.meta.index)
+        this.transitionName = "slide-right"
+      if (to.meta.index = from.meta.index)
+        this.transitionName = "slide-right"
+    }
+  }
+}
+</script>
 <style scope lang="scss">
 html{
   /*隐藏滚动条，当IE下溢出，仍然可以滚动*/
@@ -25,6 +47,9 @@ html{
 body {
   padding: 0;
   margin: 0;
+}
+p {
+  margin: 0!important;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -46,5 +71,29 @@ body {
       color: #42b983;
     }
   }
+}
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  will-change: transform;
+  transition: all 600ms;
+  position: absolute;
+}
+.slide-right-enter {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-leave-active {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
 }
 </style>

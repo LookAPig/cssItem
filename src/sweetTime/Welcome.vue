@@ -2,11 +2,11 @@
 <div class="mainBody">
     <nav>
         <div>
-            <i class="iconfont icon-shouye"></i>
-            <i class="iconfont icon-chanpin"></i>
-            <i class="iconfont icon-guanyu"></i>
-            <i class="iconfont icon-gengduo"></i>
-            <i class="iconfont icon-denglu"></i>
+            <router-link class="routerLink" to="/index"><i class="iconfont icon-shouye">&nbsp;首页</i></router-link>
+            <router-link class="routerLink" to="/404"><i class="iconfont icon-chanpin">&nbsp;专题</i></router-link>
+            <router-link class="routerLink" to="/404"><i class="iconfont icon-guanyu">&nbsp;概述</i></router-link>
+            <router-link class="routerLink" to="/404"><i class="iconfont icon-gengduo">&nbsp;更多</i></router-link>
+            <router-link class="routerLink" to="/404"><i class="iconfont icon-denglu">&nbsp;登录</i></router-link>
         </div>
     </nav>
     <svg id="logo" width="957" height="108" viewBox="0 0 957 108" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +63,10 @@ export default {
         background-size: 400% 400%;
         transition: all 0.5s;
         animation: gradient 15s ease infinite;
-        
+        a {
+            color: white;
+            transition: all .6s;
+        }
         & > nav {
             position: fixed;
             top: 4vh;
@@ -75,41 +78,21 @@ export default {
                 grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             }
             & div i {
-                cursor: pointer;
-                font-size: 1vw;
+                font-size: 1.2vw;
                 font-weight: 600;
                 transition: all .6s;
                 opacity: 0;
                 animation: showMessage 0.5s ease-out forwards 6.8s;
             }
-
-            & div i:hover {
+   
+            & div a:hover {
+                cursor: pointer;
+                text-decoration: none;
                 transform: scale(1.4);
             }
-           
-            & div i:nth-child(1)::after {
-                content: '首页';
-                margin-left: 10px;
-            }
-            & div i:nth-child(2)::after {
-                content: '产品';
-                margin-left: 10px;
-            }
-            & div i:nth-child(3)::after {
-                content: '概述';
-                margin-left: 10px;
-            }
-            & div i:nth-child(4)::after {
-                content: '更多';
-                margin-left: 10px;
-            }
-            & div i:nth-child(5)::after {
-                content: '登录';
-                margin-left: 10px;
-            }
         }
-
         & > footer {
+            cursor: pointer;
             position: fixed;
             letter-spacing: 4px;
             bottom: 10px;
