@@ -13,7 +13,7 @@
         </nav>       
     </header>
     <!-- 图片展示部分 -->
-    <header class="header_img" @mousemove="mousemove">
+    <header class="header_img" @mouseenter="enter" @mousemove="mousemove" @mouseleave="leave">
         <div class="mask"></div>
         <div class="bigImage"></div>
         <div class="context">
@@ -39,8 +39,31 @@
             </section>
         </div>
     </header>
-    <div>
-        <p v-for="i in 100" :key="i">123</p>
+    <div class="cardItem">
+        <div class="card_left">
+            <div class="card">12</div>
+        </div>
+        <div class="card_right">
+            <div class="card">
+                <p style="cursor: pointer;">寻求合作|支持我们</p>
+            </div>
+            <div class="top_five">
+                <p class="top_title">S·T精选<span style="color:#ef6c6c; font-size:20px;">TOP5</span></p>
+                <div class="top_context">
+                    <p v-for="i in 5" :key="i">NO.{{i}}&nbsp;内容内容内容内容内容内容内容内容内容内容内容内容</p>
+                </div>
+            </div>
+            <div class="project">
+                <p class="project_title">S·T专题<span style="color:#5793e0; float: right;cursor: pointer">查看全部</span></p>
+                <div class="project_context">
+                    <div class="project_item" v-for="i in projectImgArrs" :key="i.id">
+                        <span class="project_itemTitle">S·T专题{{i.id}}</span>
+                        <!-- <img data-v-e05a9992="" src="../picture/zm9kpy.jpg" style="max-width: 100%; border-radius: 0.45em;"> -->
+                        <img :src="i.imgUrl" style="max-width: 100%;border-radius: .45em;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <footer>
         <div class="icpContext">
@@ -63,13 +86,30 @@ export default {
         logo: 'S·T',
         ScaleX: '',
         ScaleY: '',
+        startx: '',
+        starty: '',
+        projectImgArrs: [
+            {id: 1, imgUrl: '../picture/1004918.jpg'},
+            {id: 2, imgUrl: '../picture/pic18.jpg'},
+            {id: 3, imgUrl: '../picture/preview.jpg'},
+            {id: 4, imgUrl: '../picture/wallhaven-oxkjgm.jpg'},
+            {id: 5, imgUrl: '../picture/zm9kpy.jpg'},
+        ]
     }
   },
   methods: {
+    enter (e) {
+        this.startx = e.clientX
+        this.starty = e.clientY
+    },
     mousemove (e) {
         this.ScaleX = e.clientX
         this.ScaleY =  e.clientY
         const banner = document.querySelectorAll('.bigImage')
+        const moveX = (e.clientX - this.startx) / 100 + 'px'
+        const moveY = (e.clientY - this.starty) / 100 + 'px'
+        
+        // 模糊化
         if (this.ScaleX > 0 && this.ScaleX <= document.body.clientWidth / 4) {
             banner[0].style.filter = `blur(0px)`
         } else if (this.ScaleX > document.body.clientWidth / 4 && this.ScaleX <= document.body.clientWidth / 2) {
@@ -79,9 +119,17 @@ export default {
         }  else if (this.ScaleX > document.body.clientWidth * (3 / 4) && this.ScaleX <= document.body.clientWidth) {
             banner[0].style.filter = `blur(3.2px)`
         }
+        // 视差移动
+        banner[0].style.backgroundPosition = moveX + ' ' + moveY
+    },
+    leave (e) {
+        // const banner = document.querySelectorAll('.bigImage')
+        // banner[0].style.transition = 'background-position 0.1s'
+        // banner[0].style.backgroundPosition = 'center'
     }
   },
   mounted () {
+    this.$forceUpdate()
     // let glowInTexts = document.querySelectorAll(".glowIn");
     //     glowInTexts.forEach(glowInText => {
     //     let letters = glowInText.textContent.split("");
@@ -162,7 +210,7 @@ export default {
             background-attachment: fixed;
             filter: blur(0.6px);
             z-index: 1;
-            transition: all 0.8s;
+            transition: filter 0.6s;
         }
         & > .context {
             width: $containerWidth;
@@ -190,6 +238,83 @@ export default {
                 & .glowIn:nth-child(2) {
                     font-size: 3.6vw;
                 }
+            }
+        }
+    }
+    .card {
+        border-radius: 0.45em;
+        transition: all 0.8s;
+    }
+    .card:hover {
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+    .cardItem {
+        width: $containerWidth;
+        margin: 4vh auto;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-column-gap: 4vw;
+        & > .card_left {
+        }
+        & > .card_right {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            & .card {
+                padding: 10px;
+                font-weight: 600;
+                margin-bottom: 3vh;
+            }
+            & .card:hover {
+                color: #5793e0;
+            }
+            .top_title,.project_title {
+                position: relative;
+                font-weight: bold;
+                text-align: left;
+                overflow: hidden;
+                cursor: default;
+                margin-bottom: 2vh!important;
+            }
+            .top_title::after,.project_title::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-left: 10px;
+                width: 100%;
+                height: 1px;
+                background-color: #666666;
+            }
+            & > .top_five {
+                margin-bottom: 3vh;
+                & .top_context p {
+                    cursor: pointer;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    transition: all 0.6s;
+                    margin-bottom: 2vh!important;
+                    font-weight: 600;
+                }
+                & .top_context p:hover {
+                    color: #5793e0;
+                }
+            }
+
+            & > .project {
+              & .project_context {
+                width: 100%;
+                & .project_item {
+                    position: relative;
+                    margin-bottom: 2vh;
+                    & .project_itemTitle {
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+                }
+              }  
             }
         }
     }
