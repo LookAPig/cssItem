@@ -58,8 +58,11 @@
                 <div class="project_context">
                     <div class="project_item" v-for="i in projectImgArrs" :key="i.id">
                         <span class="project_itemTitle">S·T专题{{i.id}}</span>
-                        <!-- <img data-v-e05a9992="" src="../picture/zm9kpy.jpg" style="max-width: 100%; border-radius: 0.45em;"> -->
-                        <img :src="i.imgUrl" style="max-width: 100%;border-radius: .45em;"/>
+                        <span class="project_button"><span>查看专题</span></span>
+                        <div class="mask"></div>
+                        <div class="project_img">
+                            <img :src="i.imgUrl" style="max-width: 100%;border-radius: .45em;transition: all 0.6s;"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,11 +92,11 @@ export default {
         startx: '',
         starty: '',
         projectImgArrs: [
-            {id: 1, imgUrl: '../picture/1004918.jpg'},
-            {id: 2, imgUrl: '../picture/pic18.jpg'},
-            {id: 3, imgUrl: '../picture/preview.jpg'},
-            {id: 4, imgUrl: '../picture/wallhaven-oxkjgm.jpg'},
-            {id: 5, imgUrl: '../picture/zm9kpy.jpg'},
+            {id: 1, imgUrl: require('../picture/1004918.jpg')},
+            {id: 2, imgUrl:  require('../picture/pic18.jpg')},
+            {id: 3, imgUrl:  require('../picture/preview.jpg')},
+            {id: 4, imgUrl:  require('../picture/wallhaven-oxkjgm.jpg')},
+            {id: 5, imgUrl:  require('../picture/zm9kpy.jpg')},
         ]
     }
   },
@@ -254,8 +257,11 @@ export default {
         display: grid;
         grid-template-columns: 3fr 1fr;
         grid-column-gap: 4vw;
+        // 主题左边
         & > .card_left {
         }
+        
+        // 主题右边
         & > .card_right {
             overflow: hidden;
             white-space: nowrap;
@@ -286,6 +292,8 @@ export default {
                 height: 1px;
                 background-color: #666666;
             }
+
+            // TOP5
             & > .top_five {
                 margin-bottom: 3vh;
                 & .top_context p {
@@ -300,21 +308,57 @@ export default {
                     color: #5793e0;
                 }
             }
-
+            // 专题
             & > .project {
-              & .project_context {
-                width: 100%;
-                & .project_item {
-                    position: relative;
-                    margin-bottom: 2vh;
-                    & .project_itemTitle {
-                        position: absolute;
-                        top: 0;
-                        left: 50%;
-                        transform: translateX(-50%);
-                    }
+                .mask {
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba($color: #000000, $alpha: 0.4);
+                    position: absolute;
+                    border-radius: 0.45em;
+                    z-index: 1;
                 }
-              }  
+                & .project_context {
+                    width: 100%;
+                    & .project_item {
+                        position: relative;
+                        margin-bottom: 2vh;
+                        & .project_itemTitle {
+                            font-size: 20px;
+                            font-weight: 600;
+                            position: absolute;
+                            top: 20%;
+                            left: 50%;
+                            color: white;
+                            transform: translateX(-50%);
+                            z-index: 2;
+                        }
+                        & .project_button {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            color: white;
+                            transform: translateX(-50%);
+                            z-index: 2;
+                            & span {
+                                display: inline-block;
+                                cursor: pointer;
+                                background-color: transparent;
+                                border-radius: 100px;
+                                text-align: center;
+                                text-decoration: none;
+                                border: 1px solid #fff;
+                                padding: 7px 24px;
+                                transition: all .6s;
+                                &:hover {
+                                    background-color: #fff;
+                                    color: #5793e0;
+                                    
+                                }
+                            }
+                        }
+                    }
+                }  
             }
         }
     }
