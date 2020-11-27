@@ -1,7 +1,7 @@
 <template>
 <div class="mainBody">
     <!-- 导航栏部分 -->
-    <header class="header_nav">
+    <!-- <header class="header_nav">
         <nav class="nav_itme">
             <span class="logo">{{logo}}</span>
             <span class="nav_item">
@@ -11,7 +11,7 @@
                 <router-link class="routerLink" to="/404">登录</router-link>
             </span>
         </nav>       
-    </header>
+    </header> -->
     <!-- 图片展示部分 -->
     <header class="header_img" @mouseenter="enter" @mousemove="mousemove" @mouseleave="leave">
         <div class="mask"></div>
@@ -41,11 +41,30 @@
     </header>
     <div class="cardItem">
         <div class="card_left">
-            <div class="card">12</div>
+            <div class="card card_itme" v-for="i in articleImgArrs" :key="i.id">
+                <div class="article_title">
+                    <span class="highlight" style="float:left;transition: all 1s;">文章标题{{i.id}}</span>
+                    <i style="float:right" class="iconfont icon-lianjie highlight"></i>
+                </div>
+                <div class="aritcle_content">123123112312312321312312312321312312312321312312312321312312312321312312312321312312312321312312312321312312312321323213</div>
+                <div class="aritcle_img">
+                    <img :src="i.imgUrl" />
+                </div>
+                <div class="aritcle_footer">
+                    <span style="float:left">发布时间：2020/10/31</span>
+                    <span style="float:right">
+                        <i class="iconfont icon-aixin">233</i>
+                        <i class="iconfont icon-pinglun">123</i>
+                    </span>
+                </div>
+            </div>
+            <div class="card card_loading">
+
+            </div>
         </div>
         <div class="card_right">
             <div class="card">
-                <p style="cursor: pointer;">寻求合作|支持我们</p>
+                <p class="highlight" style="cursor: pointer;transition: all 1s;">寻求合作|支持我们</p>
             </div>
             <div class="top_five">
                 <p class="top_title">S·T精选<span style="color:#ef6c6c; font-size:20px;">TOP5</span></p>
@@ -97,6 +116,13 @@ export default {
             {id: 3, imgUrl:  require('../picture/preview.jpg')},
             {id: 4, imgUrl:  require('../picture/wallhaven-oxkjgm.jpg')},
             {id: 5, imgUrl:  require('../picture/zm9kpy.jpg')},
+        ],
+        articleImgArrs: [
+            {id: 1, imgUrl: require('../picture/oxd3mm.jpg')},
+            {id: 2, imgUrl:  require('../picture/wallhaven-723732.png')},
+            {id: 3, imgUrl:  require('../picture/wallhaven-756830.jpg')},
+            {id: 4, imgUrl:  require('../picture/wallhaven-eyl1xr.jpg')},
+            {id: 5, imgUrl:  require('../picture/wallhaven-g83m3d.jpg')},
         ]
     }
   },
@@ -155,7 +181,8 @@ export default {
     $containerWidth: calc(100%*0.65 + 100px);
     .mainBody {
         font-family: '思源黑体 CN';
-        color: #666666
+        color: #666666;
+        scroll-snap-type: y mandatory;
     }
     .header_nav {
         width: 100%;
@@ -196,6 +223,7 @@ export default {
         }
     }
     .header_img {
+        scroll-snap-align: start;
         position: relative;
         & > .mask {
             width: 100%;
@@ -246,10 +274,10 @@ export default {
     }
     .card {
         border-radius: 0.45em;
-        transition: all 0.8s;
+        cursor: pointer;
     }
-    .card:hover {
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    .card:hover .highlight {
+        color: #5793e0;
     }
     .cardItem {
         width: $containerWidth;
@@ -257,8 +285,47 @@ export default {
         display: grid;
         grid-template-columns: 3fr 1fr;
         grid-column-gap: 4vw;
+        // scroll-behavior: smooth;
+        scroll-snap-align: start;
         // 主题左边
         & > .card_left {
+            width: 100%;
+            overflow: hidden;
+            .card_itme {
+                padding: 4vh;
+                margin-bottom: 4vh;
+                // overflow: hidden;
+                .article_title * {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    margin-bottom: 2vh;
+                }
+                .aritcle_content {
+                    text-align: left;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    margin-bottom: 2vh;
+                }
+                .aritcle_img {
+                    padding: 1vh;
+                    border: 1px solid rgba($color: #666666, $alpha: 0.2);
+                    border-radius: 0.45em;
+                    margin-bottom: 2vh;
+                    overflow: hidden;
+                    & > img {
+                        border-radius: 0.45em;
+                        max-width: 100%;
+                        transition: all 0.8s;
+                    }
+                    & > img:hover {
+                        transform: scale(1.2);
+                    }
+                }
+                .aritcle_footer span:nth-child(2) i {
+                    margin-left: 20px;
+                }
+            }
         }
         
         // 主题右边
@@ -270,9 +337,6 @@ export default {
                 padding: 10px;
                 font-weight: 600;
                 margin-bottom: 3vh;
-            }
-            & .card:hover {
-                color: #5793e0;
             }
             .top_title,.project_title {
                 position: relative;
@@ -301,7 +365,7 @@ export default {
                     overflow: hidden;
                     text-overflow: ellipsis;
                     transition: all 0.6s;
-                    margin-bottom: 2vh!important;
+                    margin-bottom: 4vh!important;
                     font-weight: 600;
                 }
                 & .top_context p:hover {
@@ -324,7 +388,7 @@ export default {
                         position: relative;
                         margin-bottom: 2vh;
                         & .project_itemTitle {
-                            font-size: 20px;
+                            font-size: 1rem;
                             font-weight: 600;
                             position: absolute;
                             top: 20%;
@@ -353,7 +417,6 @@ export default {
                                 &:hover {
                                     background-color: #fff;
                                     color: #5793e0;
-                                    
                                 }
                             }
                         }
