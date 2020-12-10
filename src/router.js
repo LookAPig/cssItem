@@ -85,6 +85,12 @@ export default new Router({
       name: 'index',
       component: () => import('./sweetTime/Index.vue'),
       meta: {index: 1}
+    },
+    {
+      path: '/newIndex',
+      name: 'newIndex',
+      component: () => import('./sweetTime/NewIndex.vue'),
+      meta: {index: 1}
     }
   ]
 })

@@ -3,7 +3,7 @@
     <nav>
         <div>
             <router-link class="routerLink" to="/index"><i class="iconfont icon-shouye">&nbsp;首页</i></router-link>
-            <router-link class="routerLink" to="/404"><i class="iconfont icon-chanpin">&nbsp;专题</i></router-link>
+            <router-link class="routerLink" to="/newIndex"><i class="iconfont icon-chanpin">&nbsp;专题</i></router-link>
             <router-link class="routerLink" to="/404"><i class="iconfont icon-guanyu">&nbsp;概述</i></router-link>
             <router-link class="routerLink" to="/404"><i class="iconfont icon-gengduo">&nbsp;更多</i></router-link>
             <router-link class="routerLink" to="/404"><i class="iconfont icon-denglu">&nbsp;登录</i></router-link>

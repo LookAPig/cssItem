@@ -1,8 +1,11 @@
 <template>
 <div class="mainBody">
-    <!-- 导航栏部分 -->
-    <!-- <header class="header_nav">
-        <nav class="nav_itme">
+
+    <!-- 图片展示部分 -->
+    <header class="header_img" @mouseenter="enter" @mousemove="mousemove">
+        <!-- 导航栏部分 -->
+        <div class="header_nav">
+            <nav class="nav_itme">
             <span class="logo">{{logo}}</span>
             <span class="nav_item">
                 <router-link class="routerLink" to="/404">专题</router-link>
@@ -10,17 +13,15 @@
                 <router-link class="routerLink" to="/404">更多</router-link>
                 <router-link class="routerLink" to="/404">登录</router-link>
             </span>
-        </nav>       
-    </header> -->
-    <!-- 图片展示部分 -->
-    <header class="header_img" @mouseenter="enter" @mousemove="mousemove" @mouseleave="leave">
+        </nav>  
+        </div>
         <div class="mask"></div>
         <div class="bigImage"></div>
         <div class="context">
             <section>
-                <!-- <p class="glowIn">你好，</p>
-                <p class="glowIn">这里是SWEET·TIME</p> -->
-                <p class="glowIn"><span style="animation-delay: 0.0s;">你</span><span style="animation-delay: 0.1s;">好</span><span style="animation-delay: 0.2s;">，</span></p>
+                <p class="glowIn">你好，</p>
+                <p class="glowIn">这里是SWEET·TIME~</p>
+                <!-- <p class="glowIn"><span style="animation-delay: 0.0s;">你</span><span style="animation-delay: 0.1s;">好</span><span style="animation-delay: 0.2s;">，</span></p>
                 <p class="glowIn">
                     <span style="animation-delay: 0.3s;">这</span>
                     <span style="animation-delay: 0.4s;">里</span>
@@ -35,11 +36,15 @@
                     <span style="animation-delay: 1.3s;">I</span>
                     <span style="animation-delay: 1.4s;">M</span>
                     <span style="animation-delay: 1.5s;">E</span>
-                </p>
+                    <span style="animation-delay: 1.7s;">~</span>
+                </p> -->
             </section>
         </div>
+        <div class="header_footer">
+            <span>滚动鼠标或者点这里</span>
+        </div>
     </header>
-    <div class="cardItem">
+    <div class="cardItem" id="cardItem">
         <div class="card_left">
             <div class="card card_itme" v-for="i in articleImgArrs" :key="i.id">
                 <div class="article_title">
@@ -151,76 +156,77 @@ export default {
         // 视差移动
         banner[0].style.backgroundPosition = moveX + ' ' + moveY
     },
-    leave (e) {
-        // const banner = document.querySelectorAll('.bigImage')
-        // banner[0].style.transition = 'background-position 0.1s'
-        // banner[0].style.backgroundPosition = 'center'
-    }
+    getScroll () {
+        // 设置滚动监听的位置
+        let scrollPlace = document.querySelectorAll('.cardItem')
+        // 需要滚动的距离
+        let total = scrollPlace[0].offsetTop
+        // 获取滚动条与窗体顶部的距离
+        let distance = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+        // 计算每一小段的距离
+        let step = total / 100
+        if (total > distance) {
+            this.smoothDown(total, distance, step)
+        } else {
+            let newTotal = distance - total
+            step = newTotal / 50
+            // this.smoothUp(total, distance, step)
+        }
+    },
+    smoothDown (total, distance, step) {
+        if (total > distance) {
+            distance += step
+            document.body.scrollTop = distance - 30
+            document.documentElement.scrollTop = distance - 30
+            window.pageYOffset = distance
+            let cardItem = document.querySelectorAll('.card_itme')
+            // for (let i = 0; i < cardItem.length; i++) {
+            //     cardItem[i].style.animation = `goto ${i + 3}s linear`
+            // }
+            setTimeout(this.smoothDown, 2000)
+        }
+    },
+    // smoothUp (total, distance, step) {
+    //     if (total < distance) {
+    //         distance -= step
+    //         document.body.scrollTop = distance - 20
+    //         document.documentElement.scrollTop = distance - 20
+    //         window.pageYOffset = distance
+    //         setTimeout(this.smoothUp, 2800)
+    //     }
+    // }
   },
   mounted () {
-    this.$forceUpdate()
-    // let glowInTexts = document.querySelectorAll(".glowIn");
-    //     glowInTexts.forEach(glowInText => {
-    //     let letters = glowInText.textContent.split("");
-    //     glowInText.textContent = "";
-    //     letters.forEach((letter, i) => {
-    //         let span = document.createElement("span");
-    //         span.textContent = letter;
-    //         span.style.animationDelay = `${i / 10 + 0.1}s`;
-    //         // span.style.animation = `glow-in 1.6s both`;
-    //         glowInText.append(span);
-    //     });
-    // });
+    window.addEventListener('scroll', this.getScroll)
+    // this.$forceUpdate()
+    let glowInTexts = document.querySelectorAll(".glowIn");
+    console.log(glowInTexts)
+    glowInTexts.forEach(glowInText => {
+        let letters = glowInText.textContent.split("");
+        glowInText.textContent = "";
+        letters.forEach((letter, i) => {
+            let span = document.createElement("span");
+            span.textContent = letter;
+            span.style.animationDelay = `${i / 10 + 0.2}s`;
+            // span.style.animation = `glow-in 1.6s both`;
+            glowInText.append(span);
+        });
+    });
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.getScroll)
   },
   components: {
   },
   created () {}
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     $containerWidth: calc(100%*0.65 + 100px);
     .mainBody {
         font-family: '思源黑体 CN';
         color: #666666;
         scroll-snap-type: y mandatory;
-    }
-    .header_nav {
-        width: 100%;
-        position: fixed;
-        top: 0;
-        z-index: 100;
-        & > nav {
-            width: calc(100%*0.65 + 100px);
-            margin: 0 auto;
-            color: white;
-            padding: 2vh 0;
-            clear: both;
-            overflow: hidden;
-            & .logo {
-                cursor: pointer;
-                float: left;
-                font-family: '汉仪菱心体简';
-                font-size: 5vh;
-                line-height: 5vh;
-            }
-            & .nav_item {
-                float: right;
-                line-height: 5vh;
-                & a {
-                    font-size: 2vh;
-                    font-weight: 600;
-                    margin-left: 50px;
-                    color: white;
-                    transition: all .6s;
-                }
-                & .routerLink:hover {
-                    cursor: pointer;
-                    color: #5793e0;
-                    text-decoration: none;
-                    transform: scale(1.4);
-                }
-            }
-        }
     }
     .header_img {
         scroll-snap-align: start;
@@ -272,6 +278,51 @@ export default {
             }
         }
     }
+    .header_nav {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 100;
+        & > nav {
+            width:  $containerWidth;
+            margin: 0 auto;
+            color: white;
+            padding: 2vh 0;
+            clear: both;
+            overflow: hidden;
+            & .logo {
+                cursor: pointer;
+                float: left;
+                font-family: '汉仪菱心体简';
+                font-size: 5vh;
+                line-height: 5vh;
+            }
+            & .nav_item {
+                float: right;
+                line-height: 5vh;
+                & a {
+                    font-size: 2vh;
+                    font-weight: 600;
+                    margin-left: 50px;
+                    color: white;
+                    transition: all .6s;
+                }
+                & .routerLink:hover {
+                    cursor: pointer;
+                    color: #5793e0;
+                    text-decoration: none;
+                    transform: scale(1.4);
+                }
+            }
+        }
+    }
+    .header_footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: $containerWidth;
+        margin: 0 auto;
+    }
     .card {
         border-radius: 0.45em;
         cursor: pointer;
@@ -294,6 +345,7 @@ export default {
             .card_itme {
                 padding: 4vh;
                 margin-bottom: 4vh;
+                translate: all 1s;
                 // overflow: hidden;
                 .article_title * {
                     font-size: 1.4rem;
@@ -468,6 +520,16 @@ export default {
         }
         to {
             opacity: 1;
+        }
+    }
+    @keyframes goto {
+        from {
+            opacity: 0;
+            // transform: translateX(-1000px);
+        }
+        to {
+            opacity: 1;
+            // transform: translateX(-0px);
         }
     }
 </style>

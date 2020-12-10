@@ -38,7 +38,7 @@ html{
   /*隐藏滚动条，当IE下溢出，仍然可以滚动*/
   -ms-overflow-style: none;
   /*火狐下隐藏滚动条*/
-  overflow: -moz-scrollbars-none;
+  
 }
 //谷歌适用
 ::-webkit-scrollbar{
