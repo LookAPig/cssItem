@@ -91,6 +91,12 @@ export default new Router({
       name: 'newIndex',
       component: () => import('./sweetTime/NewIndex.vue'),
       meta: {index: 1}
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./sweetTime/login.vue'),
+      meta: {index: 1}
     }
   ]
 })
