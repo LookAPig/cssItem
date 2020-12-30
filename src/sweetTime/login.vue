@@ -287,7 +287,7 @@ $fontColor: white;
         background-position: 0% 50%;
     }
 }
-@media screen and (max-width: 1100px){
+@media screen and (min-width: 900px) and (max-width: 1100px){
   body {
     .logo {
       width: 900px;
