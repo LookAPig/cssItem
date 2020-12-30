@@ -91,6 +91,17 @@ export default new Router({
       name: 'newIndex',
       component: () => import('./sweetTime/NewIndex.vue'),
       meta: {index: 1}
+    },
+    {
+      path: '/santaClaus',
+      name: 'santaClaus',
+      component: () => import('./sweetTime/santaClaus.vue'),
+      meta: {index: 1}
+    },
+    {
+      path: '/clipPath',
+      name: 'clipPath',
+      component: () => import('./views/ClipPath.vue'),
     }
   ]
 })

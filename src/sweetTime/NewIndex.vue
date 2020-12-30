@@ -2,43 +2,43 @@
 <div class="mainBody">
     <!-- 导航 -->
     <div id='web_Header_Rresentation' @mouseenter="enter" @mousemove="mousemove">
-        <!-- 背景图 -->
-        <div class="backgroundImg">
-            <div class="backgroundImg1 web_Header_BackgroundImg"></div>
-            <div class="backgroundImg2 web_Header_BackgroundImg"></div>
-        </div>
-        <!-- 遮罩层 -->
-        <div class="web_Header_Mask"></div>
-        <!-- 导航栏 -->
-        <div class="web_Header_Nav">
-            <nav class="nav_Body">
-                <span>{{logo}}</span>
-                <span>
-                    <router-link class="routerLink" to="/404"><i class="iconfont icon-chanpin">&nbsp;Special</i></router-link>
-                    <router-link class="routerLink" to="/404"><i class="iconfont icon-guanyu">&nbsp;About</i></router-link>
-                    <router-link class="routerLink" to="/404"><i class="iconfont icon-gengduo">&nbsp;More</i></router-link>
-                    <router-link class="routerLink" to="/404"><i class="iconfont icon-denglu">&nbsp;Login</i></router-link>
-                </span>
-            </nav>
-        </div>
-        <!-- 内容区 -->
-        <div class="web_Header_Context">
-            <div class="header_Context">
-                <p class="title glowIn">HI&nbsp;(゜-゜)つ!,</p>
-                <p class="title glowIn">THIS IS SWEET·TIME~</p>
+            <!-- 背景图 -->
+            <div class="backgroundImg">
+                <div class="backgroundImg1 web_Header_BackgroundImg"></div>
+                <div class="backgroundImg2 web_Header_BackgroundImg"></div>
             </div>
-        </div>
-        <!-- 提示区 -->
-        <div class="web_Header_Footer">
-            <div class="header_Footer">
-                <span @click="getScroll">Scroll Mouse<i class="iconfont icon-shubiao"></i>or Click Here</span>
-                <span>
-                    <i class="iconfont icon-weixin"></i>
-                    <i class="iconfont icon-qq"></i>
-                    <i class="iconfont icon-youjian"></i>
-                </span>
+            <!-- 遮罩层 -->
+            <div class="web_Header_Mask"></div>
+            <!-- 导航栏 -->
+            <div class="web_Header_Nav">
+                <nav class="nav_Body">
+                    <span>{{logo}}</span>
+                    <span>
+                        <router-link class="routerLink" to="/404"><i class="iconfont icon-chanpin">&nbsp;Special</i></router-link>
+                        <router-link class="routerLink" to="/404"><i class="iconfont icon-guanyu">&nbsp;About</i></router-link>
+                        <router-link class="routerLink" to="/404"><i class="iconfont icon-gengduo">&nbsp;More</i></router-link>
+                        <router-link class="routerLink" to="/404"><i class="iconfont icon-denglu">&nbsp;Login</i></router-link>
+                    </span>
+                </nav>
             </div>
-        </div>
+            <!-- 内容区 -->
+            <div class="web_Header_Context">
+                <div class="header_Context">
+                    <p class="title glowIn">HI&nbsp;(゜-゜)つ!,</p>
+                    <p class="title glowIn">THIS IS SWEET·TIME~</p>
+                </div>
+            </div>
+            <!-- 提示区 -->
+            <div class="web_Header_Footer">
+                <div class="header_Footer">
+                    <span @click="getScroll">Scroll Mouse<i class="iconfont icon-shubiao"></i>or Click Here</span>
+                    <span>
+                        <i class="iconfont icon-weixin"></i>
+                        <i class="iconfont icon-qq"></i>
+                        <i class="iconfont icon-youjian"></i>
+                    </span>
+                </div>
+            </div>
     </div>
     <!-- 内容 -->
     <div id="web_Content_Rresentation">
@@ -149,11 +149,19 @@ export default {
             window.pageYOffset = distance
             setTimeout(this.smoothDown, 2000)
         }
+    },
+    clipPath () {
+        let section = document.getElementById('a')
+        window.addEventListener('scroll', () => {
+            let value = window.scrollY
+            section.style.clipPath = `circle(${value}px at center)`
+        })
     }
   },
   mounted () {
     this.showMessage()
-    window.addEventListener('scroll', this.getScroll)
+    // window.addEventListener('scroll', this.getScroll)
+    window.addEventListener('scroll', this.clipPath)
   },
   destroyed () {
     window.removeEventListener('scroll', this.getScroll)
@@ -178,6 +186,7 @@ export default {
         color: #333333;
         transition: all 0.6s;
     }
+
     #web_Header_Rresentation {
         overflow: -moz-scrollbars-none;
         -moz-user-select: none; /*火狐*/
