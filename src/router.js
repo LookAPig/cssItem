@@ -101,7 +101,13 @@ export default new Router({
     {
       path: '/clipPath',
       name: 'clipPath',
-      component: () => import('./views/ClipPath.vue'),
+      component: () => import('./views/ClipPath.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./sweetTime/login.vue'),
+      meta: {index: 1}
     }
   ]
 })
